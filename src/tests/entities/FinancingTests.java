@@ -16,5 +16,9 @@ public class FinancingTests {
 			int month = -1;
 			Financing fin = FinancingFactory.createinvalidFinancing(totalAmount, income, month);
 		});
+		
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			Financing fin = FinancingFactory.createEmptyFinancing();
+		});
 	}
 }
