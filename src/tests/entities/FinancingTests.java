@@ -9,16 +9,55 @@ import tests.factory.FinancingFactory;
 public class FinancingTests {
 	
 	@Test
-	public void constructShouldCreateObjetWhenCorrectData() {
-		Assertions.assertThrows(IllegalArgumentException.class , () -> {
-			double totalAmount = -1000.0;
-			double income = -100.0;
-			int month = -1;
-			Financing fin = FinancingFactory.createinvalidFinancing(totalAmount, income, month);
+	public void constructorShouldCreateObjWhenCorrectData() {
+		Assertions.assertDoesNotThrow(() -> {
+			Financing fin = FinancingFactory.createFinancing(100000.0, 2000.0, 80);
+		});
+	}
+	
+	@Test
+	public void constructorShouldErrorWhenIncorrectData() {
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			Financing fin = FinancingFactory.createFinancing(100000.0, 2000.0, 20);
+		});
+	}
+	
+	@Test
+	public void setTotalAmountShouldUpdateValueWhenCorrectData() {
+		
+		double totalAmount = 100000.0;
+		
+		Assertions.assertDoesNotThrow(() -> {
+			Financing fin = FinancingFactory.createFinancing(0.0, 2000.0, 80);
+			fin.setTotalAmount(totalAmount);
 		});
 		
+	}
+	
+	
+	@Test
+	public void setTotalAmountShouldErrorWhenIncorrectValue() {
+		
 		Assertions.assertThrows(IllegalArgumentException.class, () -> {
-			Financing fin = FinancingFactory.createEmptyFinancing();
+			Financing fin = FinancingFactory.createFinancing(0.0, 2000.0, 20);
+			fin.setTotalAmount(100000.0);
+		}); 
+	}
+	
+	@Test
+	public void setIncomeShouldUpdateWhenCorrectValue() {
+		
+		Assertions.assertDoesNotThrow(() -> {
+			Financing fin = FinancingFactory.createFinancing(100000.0, 4000.0, 80);
+			fin.setIncome(2000.0);
+		}); 
+	}
+	
+	@Test
+	public void setIncomeShouldErrorWhenIncorrectData() {
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			Financing fin = FinancingFactory.createFinancing(100000.0, 2000.0, 20);
+			fin.setIncome(1000.0);
 		});
 	}
 }
